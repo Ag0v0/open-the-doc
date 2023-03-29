@@ -1,0 +1,143 @@
+{
+  "name": "open-the-doc",
+  "displayName": "Open The Doc",
+  "description": "Open a document",
+  "version": "1.2.1",
+  "author": "Ag",
+  "publisher": "Ghosts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ag0v0/open-the-doc"
+  },
+  "icon": "icons/logo.png",
+  "galleryBanner": {
+    "color": "#4fc08d",
+    "theme": "dark"
+  },
+  "keywords": [
+    "open",
+    "document",
+    "doc",
+    "link"
+  ],
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:tree_view"
+  ],
+  "main": "src/main.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Open The Doc",
+      "properties": {
+        "open_the_doc.links": {
+          "type": "object",
+          "default": {},
+          "description": "docs url configuration"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "doc_open.picker",
+        "title": "😋 Open The Docs Picker",
+        "icon": "icons/logo.png"
+      },
+      {
+        "command": "doc_open.contextMenus",
+        "title": "😋 Open In VS Code",
+        "icon": "icons/logo.png",
+        "category": "Open The Doc"
+      },
+      {
+        "command": "doc_open.tree_view",
+        "title": "Open The Doc"
+      },
+      {
+        "command": "link_list.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "icons/refresh_dark.svg",
+          "dark": "icons/refresh_light.svg"
+        }
+      },
+      {
+        "command": "link_list.append",
+        "title": "Append",
+        "icon": {
+          "light": "icons/append_dark.svg",
+          "dark": "icons/append_light.svg"
+        }
+      },
+      {
+        "command": "link_list.delete",
+        "title": "Delete",
+        "icon": {
+          "light": "icons/dlete_dark.svg",
+          "dark": "icons/delete_light.svg"
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tree_view",
+          "title": "Open The Doc",
+          "icon": "icons/logo.png"
+        }
+      ]
+    },
+    "views": {
+      "tree_view": [
+        {
+          "id": "link_list",
+          "name": "Link List",
+          "icon": "icons/logo.png"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "link_list.refresh",
+          "when": "view == link_list",
+          "group": "navigation"
+        },
+        {
+          "command": "link_list.append",
+          "when": "view == link_list",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "link_list.delete",
+          "when": "view == link_list",
+          "group": "inline"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "doc_open.contextMenus",
+          "group": "open_the_doc"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "vsce package"
+  },
+  "devDependencies": {
+    "vscode": "^1.1.37"
+  },
+  "dependencies": {
+    "licia": "^1.37.1"
+  }
+}
