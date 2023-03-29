@@ -6,6 +6,7 @@ const {
   CONFIG_KEY,
   getCustomLinks,
   appendLinkItem,
+  editLinkItem,
   deleteLinkItem,
 } = require("./common");
 const { TreeViewProvider } = require("./TreeDataProvider");
@@ -85,7 +86,12 @@ const editLinkHandler = async (urlPreset, labelPreset) => {
           : "Please enter the label in the correct format!";
       },
     });
-    await appendLinkItem(label, url);
+
+    if (labelPreset) {
+      await editLinkItem(labelPreset, label, url);
+    } else {
+      await appendLinkItem(label, url);
+    }
   } catch (error) {
     window.showWarningMessage(error.message);
   }

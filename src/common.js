@@ -21,6 +21,16 @@ const appendLinkItem = (key, value) => {
   return updateCustomLinks(customLinks);
 };
 
+// 修改单条链接
+const editLinkItem = (key, newKey, newValue) => {
+  const customLinks = getCustomLinks();
+  if (key !== newKey) {
+    Reflect.deleteProperty(customLinks, key);
+  }
+  customLinks[newKey] = newValue;
+  return updateCustomLinks(customLinks);
+};
+
 // 删除单条链接
 const deleteLinkItem = (key) => {
   const customLinks = getCustomLinks();
@@ -33,5 +43,6 @@ module.exports = {
   getCustomLinks,
   updateCustomLinks,
   appendLinkItem,
+  editLinkItem,
   deleteLinkItem,
 };
