@@ -2,7 +2,7 @@
   "name": "open-the-doc",
   "displayName": "Open The Doc",
   "description": "Open a document",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Ag",
   "publisher": "Ghosts",
   "license": "MIT",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/Ag0v0/open-the-doc"
   },
-  "icon": "icons/logo.png",
+  "icon": "icons/logo.svg",
   "galleryBanner": {
     "color": "#4fc08d",
     "theme": "dark"
@@ -47,12 +47,12 @@
       {
         "command": "doc_open.picker",
         "title": "😋 Open The Docs Picker",
-        "icon": "icons/logo.png"
+        "icon": "icons/logo.svg"
       },
       {
         "command": "doc_open.contextMenus",
         "title": "😋 Open In VS Code",
-        "icon": "icons/logo.png",
+        "icon": "icons/logo.svg",
         "category": "Open The Doc"
       },
       {
@@ -76,10 +76,18 @@
         }
       },
       {
+        "command": "link_list.edit",
+        "title": "Edit",
+        "icon": {
+          "light": "icons/edit_dark.svg",
+          "dark": "icons/edit_light.svg"
+        }
+      },
+      {
         "command": "link_list.delete",
         "title": "Delete",
         "icon": {
-          "light": "icons/dlete_dark.svg",
+          "light": "icons/delete_dark.svg",
           "dark": "icons/delete_light.svg"
         }
       }
@@ -89,7 +97,7 @@
         {
           "id": "tree_view",
           "title": "Open The Doc",
-          "icon": "icons/logo.png"
+          "icon": "icons/logo.svg"
         }
       ]
     },
@@ -98,7 +106,7 @@
         {
           "id": "link_list",
           "name": "Link List",
-          "icon": "icons/logo.png"
+          "icon": "icons/logo.svg"
         }
       ]
     },
@@ -107,19 +115,24 @@
         {
           "command": "link_list.refresh",
           "when": "view == link_list",
-          "group": "navigation"
+          "group": "navigation@1"
         },
         {
           "command": "link_list.append",
           "when": "view == link_list",
-          "group": "navigation"
+          "group": "navigation@2"
         }
       ],
       "view/item/context": [
         {
+          "command": "link_list.edit",
+          "when": "view == link_list",
+          "group": "inline@1"
+        },
+        {
           "command": "link_list.delete",
           "when": "view == link_list",
-          "group": "inline"
+          "group": "inline@2"
         }
       ],
       "editor/context": [

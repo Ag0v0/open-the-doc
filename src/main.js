@@ -56,6 +56,41 @@ const openWebviewPanel = (link, title) => {
   panel.webview.html = createHtml(link);
 };
 
+// 链接编辑
+const editLinkHandler = async (urlPreset, labelPreset) => {
+  try {
+    const url = await window.showInputBox({
+      title: "Link",
+      value: urlPreset,
+      placeHolder: "Please enter the link",
+      ignoreFocusOut: true,
+      validateInput: (input) => {
+        return isUrl(input)
+          ? null
+          : "Please enter the link in the correct format!";
+      },
+    });
+
+    // 用户取消退出
+    if (!url) return;
+
+    const label = await window.showInputBox({
+      title: "Label",
+      value: labelPreset,
+      placeHolder: "Please enter the label",
+      ignoreFocusOut: true,
+      validateInput: (input) => {
+        return input.trim()
+          ? null
+          : "Please enter the label in the correct format!";
+      },
+    });
+    await appendLinkItem(label, url);
+  } catch (error) {
+    window.showWarningMessage(error.message);
+  }
+};
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 const activate = (context) => {
@@ -116,35 +151,15 @@ const activate = (context) => {
   /* 添加 */
   context.subscriptions.push(
     commands.registerCommand("link_list.append", async () => {
-      try {
-        const url = await window.showInputBox({
-          title: "Link",
-          placeHolder: "Please enter the link",
-          ignoreFocusOut: true,
-          validateInput: (input) => {
-            return isUrl(input)
-              ? null
-              : "Please enter the link in the correct format!";
-          },
-        });
+      editLinkHandler();
+    })
+  );
 
-        // 用户取消退出
-        if (!url) return;
-
-        const label = await window.showInputBox({
-          title: "Label",
-          placeHolder: "Please enter the label",
-          ignoreFocusOut: true,
-          validateInput: (input) => {
-            return input.trim()
-              ? null
-              : "Please enter the label in the correct format!";
-          },
-        });
-        await appendLinkItem(label, url);
-      } catch (error) {
-        window.showWarningMessage(error.message);
-      }
+  /* 编辑 */
+  context.subscriptions.push(
+    commands.registerCommand("link_list.edit", async (item) => {
+      const customLinks = getCustomLinks();
+      editLinkHandler(customLinks[item.label], item.label);
     })
   );
 
