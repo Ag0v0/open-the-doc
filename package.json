@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/Ag0v0/open-the-doc"
   },
-  "icon": "icons/logo.svg",
+  "icon": "icons/logo.png",
   "galleryBanner": {
     "color": "#4fc08d",
     "theme": "dark"
